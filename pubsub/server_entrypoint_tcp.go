@@ -54,7 +54,7 @@ func NewTCPEntrypoint(lnConfiguration *TCPListenerConfiguration) (*TCPEntryPoint
 	}, nil
 }
 
-// TCPFanout is a message which is sent to all interested TCP connections.
+// TCPFanout is a message which is sent to a set of TCP connections.
 type TCPFanout struct {
 	channel string
 	data    string
