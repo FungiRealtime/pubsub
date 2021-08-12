@@ -1,4 +1,4 @@
-package pubsub
+package server
 
 import (
 	"bufio"
@@ -61,7 +61,7 @@ type TCPFanout struct {
 	conns   []net.Conn
 }
 
-// tcpFanout sends a message to all interested TCP connections.
+// tcpFanout sends a message to a set of TCP connections.
 func tcpFanout(f TCPFanout) {
 	message := fmt.Sprintf("MSG %s %s", f.channel, f.data)
 	for _, conn := range f.conns {
@@ -71,6 +71,8 @@ func tcpFanout(f TCPFanout) {
 
 // buildListener builds a keepalive TCP listener.
 func buildListener(configuration *TCPListenerConfiguration) (net.Listener, error) {
+	logger.Debugf("Open TCP listener at %s", configuration.Address)
+
 	listener, err := net.Listen("tcp", configuration.Address)
 	if err != nil {
 		return nil, fmt.Errorf("error opening listener: %w", err)

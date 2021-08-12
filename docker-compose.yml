@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  pubsub:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "4040:4040"
